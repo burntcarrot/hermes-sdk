@@ -59,3 +59,13 @@ func main() {
 	}
 }
 ```
+
+## Providers
+
+Here is a list of providers which are currently supported:
+- [x] Slack
+- [x] Discord
+- [ ] Linear
+- [ ] Jira
+- [ ] GitHub Issues
+- [ ] Mailgun

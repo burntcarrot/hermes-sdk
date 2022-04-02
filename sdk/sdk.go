@@ -5,13 +5,15 @@ import (
 	"net/url"
 
 	"github.com/deepsourcelabs/hermes/domain"
+	"github.com/deepsourcelabs/hermes/provider/discord"
 	"github.com/deepsourcelabs/hermes/provider/slack"
 
-	slackProvider "github.com/deepsourcelabs/hermes-sdk/sdk/providers/slack"
+	"github.com/deepsourcelabs/hermes-sdk/sdk/providers"
 )
 
 type Client struct {
-	Slack *slackProvider.SlackService
+	Slack   *providers.SlackService
+	Discord *providers.DiscordService
 }
 
 // NewClient returns a new Client.
@@ -25,8 +27,13 @@ func NewClient(baseURL string) (*Client, error) {
 		HTTPClient: http.DefaultClient,
 	}
 
+	dc := discord.Client{
+		HTTPClient: http.DefaultClient,
+	}
+
 	c := &Client{
-		Slack: &slackProvider.SlackService{Client: &sc, BaseURL: u},
+		Slack:   &providers.SlackService{Client: &sc, BaseURL: u},
+		Discord: &providers.DiscordService{Client: &dc, BaseURL: u},
 	}
 
 	return c, nil
